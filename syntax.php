@@ -33,7 +33,7 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
   function getType(){ return 'substition'; }
   function getSort(){ return 315; }
   
-  function connectTo($mode) {
+  function connectTo($mode){
     $this->Lexer->addSpecialPattern("{{(?:gr|)avatar>.+?}}",$mode,'plugin_avatar');
   }
   
@@ -63,7 +63,9 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
   function render($mode, &$renderer, $data){  
     if ($mode == 'xhtml'){      
       if ($my =& plugin_load('helper', 'avatar'))
-        $renderer->doc .= $my->getXHTML($data[0], $data[1], $data[2], $data[3]);
+        $renderer->doc .= '<span class="vcard">'.
+          $my->getXHTML($data[0], $data[1], $data[2], $data[3]).
+          '</span>';
       return true;
     }
     return false;

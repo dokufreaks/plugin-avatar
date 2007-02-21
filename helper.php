@@ -7,7 +7,7 @@
 // must be run within Dokuwiki
 if (!defined('DOKU_INC')) die();
 
-class helper_plugin_discussion extends DokuWiki_Plugin {
+class helper_plugin_avatar extends DokuWiki_Plugin {
 
   function getInfo(){
     return array(
@@ -41,10 +41,9 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     $src = $this->_getAvatarURL($user, $title, $size);
     
     // output with vcard photo microformat
-    return '<span class="vcard">'.
-      '<img src="'.$src.'" class="media'.$align.' photo fn" title="'.hsc($title).'" '.
-      'alt="'.hsc($title).'" width="'.$size.'" height="'.$size.'" />'.
-      '</span>';
+    return '<img src="'.$src.'" class="media'.$align.' photo fn"'.
+      ' title="'.hsc($title).'" alt="'.hsc($title).'" width="'.$size.'"'.
+      ' height="'.$size.'" />';
   }
   
   /**
