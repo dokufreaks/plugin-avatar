@@ -23,9 +23,9 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-02-20',
+      'date'   => '2007-02-21',
       'name'   => 'Avatar Plugin',
-      'desc'   => 'Displays Avatar images',
+      'desc'   => 'Displays avatar images',
       'url'    => 'http://www.wikidesign.ch/en/plugin/avatar/start',
     );
   }
@@ -57,85 +57,18 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
     else if (preg_match('/^xl/', $param)) $size = 120;
     else $size = null;
     
-    $src = $this->_getAvatarURL($user, $title, $size);
-    
-    return array($src, $title, $align, $size);
+    return array($user, $title, $align, $size);
   } 
  
-  function render($mode, &$renderer, $data){
-    // a string to be added to the gravatar url
-    // see http://gravatar.com/implement.php#section_1_1
-  
-    if ($mode == 'xhtml'){
-      
-      list($src, $title, $align, $size) = $data;
-      $title = ($title ? hsc($data[1]) : obfuscate($mail));
-      
-      // output with vcard photo microformat
-      $renderer->doc .= '<span class="vcard">'.
-        '<img src="'.$src.'" class="media'.$align.' photo fn"'.
-        ' title="'.hsc($title).'" alt="'.hsc($title).'"'.
-        ' width="'.$size.'" height="'.$size.'" />'.
-        '</span>';
+  function render($mode, &$renderer, $data){  
+    if ($mode == 'xhtml'){      
+      if ($my =& plugin_load('helper', 'avatar'))
+        $renderer->doc .= $my->getXHTML($data[0], $data[1], $data[2], $data[3]);
       return true;
     }
     return false;
   }
-  
-  /**
-   * Main function to determine the avatar to use
-   */
-  function _getAvatarURL($user, &$title, &$size){
-    global $auth;
-    
-    if (!$size || !is_int($size)) $size = $this->getConf('size');
-    
-    // check first if a local image for the given user exists
-    $userinfo = $auth->getUserData($user);
-    if (is_array($userinfo)){
-      if (($userinfo['name']) && (!$title)) $title = $userinfo['name'];
-      $avatar = $this->getConf('namespace').':'.$user;
-      $formats = array('.png', '.jpg', '.gif');
-      foreach ($formats as $format){
-        $img = mediaFN($avatar.$format);
-        if (!@file_exists($img)) continue;
-        $src = ml($avatar.$format, array('w' => $size, 'h' => $size));
-        break;
-      }
-      if (!$src) $mail = $userinfo['mail'];
-    } else {
-      $mail = $user;
-    }
-    
-    if (!$src){
-      $seed = md5($user);
-    
-      // we take the monster ID as default
-      $default = ml(DOKU_URL.'lib/plugins/avatar/monsterid.php?'.
-        'seed='.$seed.
-        '&size='.$size.
-        '&.png', 'cache=recache', true, '&');
-      
-      // do not pass invalid or empty emails to gravatar site...
-      if (isvalidemail($mail) && ($size <= 80)){
-        $src = ml('http://www.gravatar.com/avatar.php?'.
-          'gravatar_id='.$seed.
-          '&default='.urlencode(DOKU_URL.$default).
-          '&size='.$size.
-          '&rating='.$this->getConf('rating').
-          '&.jpg', 'cache=recache');
-      
-      // show only default image if invalid or empty email given
-      } else {
-        $src = $default;
-      }
-    }
-    
-    if (!$title) $title = obfuscate($mail);
-    
-    return $src;
-  }
-       
+
 }
  
 //Setup VIM: ex: et ts=4 enc=utf-8 :
