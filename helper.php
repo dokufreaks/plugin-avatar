@@ -35,7 +35,7 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     return $result;
   }
   
-  function getXHTML($user, $title = '', $align = '', $size = null){
+  function getXHTML($user, $title = '', $align = '', $size = NULL){
     
     // determine the URL of the avatar image
     $src = $this->_getAvatarURL($user, $title, $size);

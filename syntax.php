@@ -47,7 +47,7 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
     if ($lalign & $ralign) $align = 'center';
     else if ($ralign)      $align = 'right';
     else if ($lalign)      $align = 'left';
-    else                   $align = null;
+    else                   $align = NULL;
     
     //split into src and size parameter (using the very last questionmark)
     list($user, $param) = explode('?', $user, 2);
@@ -55,7 +55,7 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
     else if (preg_match('/^m/', $param))  $size = 40;
     else if (preg_match('/^l/', $param))  $size = 80;
     else if (preg_match('/^xl/', $param)) $size = 120;
-    else $size = null;
+    else $size = NULL;
     
     return array($user, $title, $align, $size);
   } 
