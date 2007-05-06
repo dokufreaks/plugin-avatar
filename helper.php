@@ -13,7 +13,7 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-02-21',
+      'date'   => '2007-05-06',
       'name'   => 'Avatar Plugin (helper class)',
       'desc'   => 'Functions to get info about comments to a wiki page',
       'url'    => 'http://www.wikidesign/en/plugin/avatar/start',
@@ -42,7 +42,7 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     
     // output with vcard photo microformat
     return '<img src="'.$src.'" class="media'.$align.' photo fn"'.
-      ' title="'.hsc($title).'" alt="'.hsc($title).'" width="'.$size.'"'.
+      ' title="'.$title.'" alt="'.$title.'" width="'.$size.'"'.
       ' height="'.$size.'" />';
   }
   
@@ -57,7 +57,7 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     // check first if a local image for the given user exists
     $userinfo = $auth->getUserData($user);
     if (is_array($userinfo)){
-      if (($userinfo['name']) && (!$title)) $title = $userinfo['name'];
+      if (($userinfo['name']) && (!$title)) $title = hsc($userinfo['name']);
       $avatar = $this->getConf('namespace').':'.$user;
       $formats = array('.png', '.jpg', '.gif');
       foreach ($formats as $format){
