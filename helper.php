@@ -13,7 +13,7 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-05-06',
+      'date'   => '2007-08-22',
       'name'   => 'Avatar Plugin (helper class)',
       'desc'   => 'Functions to get info about comments to a wiki page',
       'url'    => 'http://www.wikidesign/en/plugin/avatar/start',
@@ -73,18 +73,28 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     
     if (!$src){
       $seed = md5($user);
-    
-      // we take the monster ID as default
-      $default = ml(DOKU_URL.'lib/plugins/avatar/monsterid.php?'.
-        'seed='.$seed.
-        '&size='.$size.
-        '&.png', 'cache=recache', true, '&');
+      
+      if (function_exists('imagecreatetruecolor')){
+        // we take the monster ID as default
+        $file = 'monsterid.php?seed='.$seed.'&size='.$size.'&.png';
+          
+      } else {
+        // GDlib is not availble - resort to default images
+        switch ($size){
+        case 20: case 40: case 80:
+          $file = 'images/default_'.$size.'.png';
+          break;
+        default:
+          $file = 'images/default_120.png';
+        }
+      }
+      $default = ml(DOKU_URL.'/lib/plugins/avatar/'.$file, 'cache=recache', true, '&', true);
       
       // do not pass invalid or empty emails to gravatar site...
       if (isvalidemail($mail) && ($size <= 80)){
         $src = ml('http://www.gravatar.com/avatar.php?'.
           'gravatar_id='.$seed.
-          '&default='.urlencode(DOKU_URL.$default).
+          '&default='.urlencode($default).
           '&size='.$size.
           '&rating='.$this->getConf('rating').
           '&.jpg', 'cache=recache');

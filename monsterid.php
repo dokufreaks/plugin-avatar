@@ -1,7 +1,15 @@
 <?php
+/**
+ * @license   GPL 2 (http://www.gnu.org/licenses/gpl.html)
+ * @author    Andreas Gohr <andi@splitbrain.org>
+ */
 
-build_monster($_REQUEST['seed'],$_REQUEST['size']);
+build_monster($_REQUEST['seed'], $_REQUEST['size']);
 
+/**
+ * Generates a monster for the given seed
+ * GDlib is required!
+ */
 function build_monster($seed='',$size=''){
     // init random seed
     if($seed) srand( hexdec(substr(md5($seed),0,6)) );
@@ -57,3 +65,5 @@ function build_monster($seed='',$size=''){
         imagedestroy($monster);
     }
 }
+
+//Setup VIM: ex: et ts=4 enc=utf-8 :
