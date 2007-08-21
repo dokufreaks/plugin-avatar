@@ -1,13 +1,11 @@
 ====== Avatar Plugin for DokuWiki ======
 
 All documentation for the Avatar Plugin is available online at:
-http://www.wikidesign.ch/en/plugin/avatar/start
-http://wiki.splitbrain.org/plugin:avatar
 
-This plugin requires DokuWiki 2006-11-06.
+  * http://www.wikidesign.ch/en/plugin/avatar/start
+  * http://wiki.splitbrain.org/plugin:avatar
 
-There's a Google Groups mailing list to discuss all issues:
-http://groups-beta.google.com/group/avatar-plugin/
+This plugin requires DokuWiki 2006-11-06 or later.
 
 ===== Monster ID =====
 
