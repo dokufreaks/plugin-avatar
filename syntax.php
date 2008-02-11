@@ -21,12 +21,12 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
 
   function getInfo(){
     return array(
-      'author' => 'Esther Brunner',
-      'email'  => 'wikidesign@gmail.com',
+      'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
+      'email'  => 'dokuwiki@chimeric.de',
       'date'   => '2007-02-21',
       'name'   => 'Avatar Plugin',
       'desc'   => 'Displays avatar images',
-      'url'    => 'http://www.wikidesign.ch/en/plugin/avatar/start',
+      'url'    => 'http://wiki.splitbrain.org/plugin:avatar',
     );
   }
 

@@ -11,12 +11,12 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
 
   function getInfo(){
     return array(
-      'author' => 'Esther Brunner',
-      'email'  => 'wikidesign@gmail.com',
+      'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
+      'email'  => 'dokuwiki@chimeric.de',
       'date'   => '2007-08-22',
       'name'   => 'Avatar Plugin (helper class)',
       'desc'   => 'Functions to get info about comments to a wiki page',
-      'url'    => 'http://www.wikidesign/en/plugin/avatar/start',
+      'url'    => 'http://wiki.splitbrain.org/plugin:avatar',
     );
   }
   
