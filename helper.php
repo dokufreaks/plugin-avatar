@@ -72,7 +72,7 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     }
     
     if (!$src){
-      $seed = md5($user);
+      $seed = md5($mail);
       
       if (function_exists('imagecreatetruecolor')){
         // we take the monster ID as default
