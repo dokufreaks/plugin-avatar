@@ -13,7 +13,7 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     return array(
       'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
       'email'  => 'dokuwiki@chimeric.de',
-      'date'   => '2007-08-22',
+      'date'   => '2008-03-02',
       'name'   => 'Avatar Plugin (helper class)',
       'desc'   => 'Functions to get info about comments to a wiki page',
       'url'    => 'http://wiki.splitbrain.org/plugin:avatar',
