@@ -50,7 +50,7 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
     else                   $align = NULL;
     
     //split into src and size parameter (using the very last questionmark)
-    list($user, $param) = explode('?', $user, 2);
+    list($user, $param) = explode('?', trim($user), 2);
     if (preg_match('/^s/', $param))       $size = 20;
     else if (preg_match('/^m/', $param))  $size = 40;
     else if (preg_match('/^l/', $param))  $size = 80;
