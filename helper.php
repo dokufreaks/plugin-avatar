@@ -9,7 +9,7 @@ if (!defined('DOKU_INC')) die();
 
 class helper_plugin_avatar extends DokuWiki_Plugin {
 
-  function getInfo(){
+  function getInfo() {
     return array(
       'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
       'email'  => 'dokuwiki@chimeric.de',
@@ -20,7 +20,7 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     );
   }
   
-  function getMethods(){
+  function getMethods() {
     $result = array();
     $result[] = array(
       'name'   => 'getXHTML',
@@ -35,7 +35,7 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     return $result;
   }
   
-  function getXHTML($user, $title = '', $align = '', $size = NULL){
+  function getXHTML($user, $title = '', $align = '', $size = NULL) {
     
     // determine the URL of the avatar image
     $src = $this->_getAvatarURL($user, $title, $size);
@@ -49,18 +49,18 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
   /**
    * Main function to determine the avatar to use
    */
-  function _getAvatarURL($user, &$title, &$size){
+  function _getAvatarURL($user, &$title, &$size) {
     global $auth;
     
     if (!$size || !is_int($size)) $size = $this->getConf('size');
     
     // check first if a local image for the given user exists
     $userinfo = $auth->getUserData($user);
-    if (is_array($userinfo)){
+    if (is_array($userinfo)) {
       if (($userinfo['name']) && (!$title)) $title = hsc($userinfo['name']);
       $avatar = $this->getConf('namespace').':'.$user;
       $formats = array('.png', '.jpg', '.gif');
-      foreach ($formats as $format){
+      foreach ($formats as $format) {
         $img = mediaFN($avatar.$format);
         if (!@file_exists($img)) continue;
         $src = ml($avatar.$format, array('w' => $size, 'h' => $size));
@@ -71,16 +71,16 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
       $mail = $user;
     }
     
-    if (!$src){
+    if (!$src) {
       $seed = md5($mail);
       
-      if (function_exists('imagecreatetruecolor')){
+      if (function_exists('imagecreatetruecolor')) {
         // we take the monster ID as default
         $file = 'monsterid.php?seed='.$seed.'&size='.$size.'&.png';
           
       } else {
         // GDlib is not availble - resort to default images
-        switch ($size){
+        switch ($size) {
         case 20: case 40: case 80:
           $file = 'images/default_'.$size.'.png';
           break;
@@ -91,7 +91,7 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
       $default = ml(DOKU_URL.'/lib/plugins/avatar/'.$file, 'cache=recache', true, '&', true);
       
       // do not pass invalid or empty emails to gravatar site...
-      if (isvalidemail($mail) && ($size <= 80)){
+      if (isvalidemail($mail) && ($size <= 80)) {
         $src = ml('http://www.gravatar.com/avatar.php?'.
           'gravatar_id='.$seed.
           '&default='.urlencode($default).
@@ -109,7 +109,5 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     
     return $src;
   }
-        
 }
-  
-//Setup VIM: ex: et ts=4 enc=utf-8 :
+//vim:ts=4:sw=4:et:enc=utf-8:

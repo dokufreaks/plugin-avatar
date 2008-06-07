@@ -19,7 +19,7 @@ require_once(DOKU_PLUGIN.'syntax.php');
  
 class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
 
-  function getInfo(){
+  function getInfo() {
     return array(
       'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
       'email'  => 'dokuwiki@chimeric.de',
@@ -30,14 +30,14 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
     );
   }
 
-  function getType(){ return 'substition'; }
-  function getSort(){ return 315; }
+  function getType() { return 'substition'; }
+  function getSort() { return 315; }
   
-  function connectTo($mode){
+  function connectTo($mode) {
     $this->Lexer->addSpecialPattern("{{(?:gr|)avatar>.+?}}",$mode,'plugin_avatar');
   }
   
-  function handle($match, $state, $pos, &$handler){
+  function handle($match, $state, $pos, &$handler) {
     list($syntax, $match) = explode('>', substr($match, 0, -2), 2); // strip markup
     list($user, $title) = explode('|', $match, 2); // split title from mail / username
     
@@ -60,8 +60,8 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
     return array($user, $title, $align, $size);
   } 
  
-  function render($mode, &$renderer, $data){  
-    if ($mode == 'xhtml'){      
+  function render($mode, &$renderer, $data) {  
+    if ($mode == 'xhtml') {      
       if ($my =& plugin_load('helper', 'avatar'))
         $renderer->doc .= '<span class="vcard">'.
           $my->getXHTML($data[0], $data[1], $data[2], $data[3]).
@@ -70,7 +70,5 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
     }
     return false;
   }
-
 }
- 
-//Setup VIM: ex: et ts=4 enc=utf-8 :
+//vim:ts=4:sw=4:et:enc=utf-8: 

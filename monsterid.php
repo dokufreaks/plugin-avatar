@@ -10,7 +10,7 @@ build_monster($_REQUEST['seed'], $_REQUEST['size']);
  * Generates a monster for the given seed
  * GDlib is required!
  */
-function build_monster($seed='',$size=''){
+function build_monster($seed='',$size='') {
     // init random seed
     if($seed) srand( hexdec(substr(md5($seed),0,6)) );
 
@@ -31,7 +31,7 @@ function build_monster($seed='',$size=''){
     imagefill($monster,0,0,$white);
 
     // add parts
-    foreach($parts as $part => $num){
+    foreach($parts as $part => $num) {
         $file = dirname(__FILE__).'/parts/'.$part.'_'.$num.'.png';
 
         $im = @imagecreatefrompng($file);
@@ -41,7 +41,7 @@ function build_monster($seed='',$size=''){
         imagedestroy($im);
 
         // color the body
-        if($part == 'body'){
+        if($part == 'body') {
             $color = imagecolorallocate($monster, rand(20,235), rand(20,235), rand(20,235));
             imagefill($monster,60,60,$color);
         }
@@ -51,7 +51,7 @@ function build_monster($seed='',$size=''){
     if($seed) srand();
 
     // resize if needed, then output
-    if($size && $size < 400){
+    if($size && $size < 400) {
         $out = @imagecreatetruecolor($size,$size)
             or die("GD image create failed");
         imagecopyresampled($out,$monster,0,0,0,0,$size,$size,120,120);
@@ -65,5 +65,4 @@ function build_monster($seed='',$size=''){
         imagedestroy($monster);
     }
 }
-
-//Setup VIM: ex: et ts=4 enc=utf-8 :
+//vim:ts=4:sw=4:et:enc=utf-8:
