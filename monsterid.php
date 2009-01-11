@@ -11,20 +11,20 @@ build_monster($_REQUEST['seed'], $_REQUEST['size']);
  * GDlib is required!
  */
 function build_monster($seed='',$size='') {
-    // init random seed
-    if($seed) srand( hexdec(substr(md5($seed),0,6)) );
+    // create 16 byte hash from seed
+    $hash = md5($seed);
 
-    // throw the dice for body parts
+    // calculate part values from seed
     $parts = array(
-        'legs' => rand(1,5),
-        'hair' => rand(1,5),
-        'arms' => rand(1,5),
-        'body' => rand(1,15),
-        'eyes' => rand(1,15),
-        'mouth'=> rand(1,10)
+        'legs' => _get_monster_part(substr($hash, 0, 2), 1, 5),
+        'hair' => _get_monster_part(substr($hash, 2, 2), 1, 5),
+        'arms' => _get_monster_part(substr($hash, 4, 2), 1, 5),
+        'body' => _get_monster_part(substr($hash, 6, 2), 1, 15),
+        'eyes' => _get_monster_part(substr($hash, 8, 2), 1, 15),
+        'mouth'=> _get_monster_part(substr($hash, 10, 2), 1, 10),
     );
 
-    // create backgound
+    // create background
     $monster = @imagecreatetruecolor(120, 120)
         or die("GD image create failed");
     $white   = imagecolorallocate($monster, 255, 255, 255);
@@ -42,7 +42,10 @@ function build_monster($seed='',$size='') {
 
         // color the body
         if($part == 'body') {
-            $color = imagecolorallocate($monster, rand(20,235), rand(20,235), rand(20,235));
+            $r = _get_monster_part(substr($hash, 0, 4), 20, 235);
+            $g = _get_monster_part(substr($hash, 4, 4), 20, 235);
+            $b = _get_monster_part(substr($hash, 8, 4), 20, 235);
+            $color = imagecolorallocate($monster, $r, $g, $b);
             imagefill($monster,60,60,$color);
         }
     }
@@ -64,5 +67,10 @@ function build_monster($seed='',$size='') {
         imagepng($monster);
         imagedestroy($monster);
     }
+    
+}
+
+function _get_monster_part($seed, $lower = 0, $upper = 255) {
+    return hexdec($seed) % ($upper - $lower) + $lower;
 }
 // vim:ts=4:sw=4:et:enc=utf-8:
