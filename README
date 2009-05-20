@@ -2,26 +2,8 @@
 
 All documentation for the Avatar Plugin is available online at:
 
-  * http://wiki.splitbrain.org/plugin:avatar
-
-This plugin requires DokuWiki 2006-11-06 or later.
-
-===== Monster ID =====
-
-monsterid was inspired by a post by Don Park [1] and the Combinatoric Critters [2].
-
-All graphics were created by Andreas Gohr [3]. The source code and the graphics are provided
-under the Creative Commons Attribution 2.5 License [4]
-
-If you use this software and/or graphics please link back to http://www.splitbrain.org/go/monsterid
-
-[1] http://www.docuverse.com/blog/donpark/2007/01/18/visual-security-9-block-ip-identification
-[2] http://www.levitated.net/bones/walkingFaces/index.html
-[3] http://www.splitbrain.org
-[4] http://creativecommons.org/licenses/by/2.5/
-
-----
+  * http://dokuwiki.org/plugin:avatar
 
 (c) 2005 - 2007 by Esther Brunner <wikidesign@gmail.com>
-(c) 2008 by Gina Häußge, Michael Klier <dokuwiki@chimeric.de>
+(c) 2008 - 2009 by Gina Häußge, Michael Klier <dokuwiki@chimeric.de>
 See COPYING for license info.
