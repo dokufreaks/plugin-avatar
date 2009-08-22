@@ -35,6 +35,9 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     return $result;
   }
   
+  /**
+   * Returns the XHTML of the Avatar
+   */
   function getXHTML($user, $title = '', $align = '', $size = NULL) {
     
     // determine the URL of the avatar image
@@ -53,22 +56,32 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
     global $auth;
     
     if (!$size || !is_int($size)) $size = $this->getConf('size');
-    
+
+    if(is_array($user)) {
+        $mail = $user['mail'];
+        $name = $user['name'];
+        $user = $user['user'];
+    } else {
+        $mail = $user;
+    }
+
     // check first if a local image for the given user exists
     $userinfo = $auth->getUserData($user);
     if (is_array($userinfo)) {
       if (($userinfo['name']) && (!$title)) $title = hsc($userinfo['name']);
-      $avatar = $this->getConf('namespace').':'.$user;
+      $ns = $this->getConf('namespace');
       $formats = array('.png', '.jpg', '.gif');
       foreach ($formats as $format) {
-        $img = mediaFN($avatar.$format);
-        if (!@file_exists($img)) continue;
-        $src = ml($avatar.$format, array('w' => $size, 'h' => $size));
-        break;
+        $user_img = mediaFN($ns.':'.$user.$format);
+        $name_img = mediaFN($ns.':'.$name.$format);
+        if(@file_exists($user_img)) {;
+            $src = ml($ns.':'.$user.$format, array('w' => $size, 'h' => $size));
+            break;
+        } elseif(@file_exists($name_img)) {
+            $src = ml($ns.':'.$name.$format, array('w' => $size, 'h' => $size));
+        }
       }
       if (!$src) $mail = $userinfo['mail'];
-    } else {
-      $mail = $user;
     }
     
     if (!$src) {
