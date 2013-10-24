@@ -70,10 +70,10 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
             $src = ml($ns.':'.$name.$format, array('w' => $size, 'h' => $size));
         }
       }
-      if (!$src) $mail = $userinfo['mail'];
+      if (empty($src)) $mail = $userinfo['mail'];
     }
     
-    if (!$src) {
+    if (empty($src)) {
       $seed = md5(utf8_strtolower($mail));
       
       if (function_exists('imagecreatetruecolor')) {
