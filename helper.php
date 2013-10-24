@@ -93,14 +93,14 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
       $default = ml(DOKU_URL.'/lib/plugins/avatar/'.$file, 'cache=recache', true, '&', true);
       
       // do not pass invalid or empty emails to gravatar site...
-      if (mail_isvalid($mail) && ($size <= 80)){
-        $src = ml('http://www.gravatar.com/avatar.php?'.
-          'gravatar_id='.$seed.
-          '&default='.urlencode($default).
-          '&size='.$size.
-          '&rating='.$this->getConf('rating').
-          '&.jpg', 'cache=recache');
-      
+      if (mail_isvalid($mail)){
+          if (is_ssl()) {
+              $src = 'https://secure.gravatar.com/';
+          } else {
+              $src = 'http://www.gravatar.com/';
+          }
+          $src .= 'avatar/'.$seed.'?s='.$size.'&d=monsterid'.'&r='.$this->getConf('rating').'&.jpg';
+          $src = ml($src);
       // show only default image if invalid or empty email given
       } else {
         $src = $default;
