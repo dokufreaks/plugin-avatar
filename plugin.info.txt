@@ -1,0 +1,8 @@
+# General Plugin Info
+base   avatar
+author Michael Hamann, Michael Klier, Gina Haeussge
+email  michael@content-space.de
+date   2013-10-24
+name   Avatar
+desc   Displays avatar images
+url    https://www.dokuwiki.org/plugin:avatar

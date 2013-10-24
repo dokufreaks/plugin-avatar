@@ -19,17 +19,6 @@ require_once(DOKU_PLUGIN.'syntax.php');
  
 class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
 
-  function getInfo() {
-    return array(
-      'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
-      'email'  => 'dokuwiki@chimeric.de',
-      'date'   => '2007-02-21',
-      'name'   => 'Avatar Plugin',
-      'desc'   => 'Displays avatar images',
-      'url'    => 'http://wiki.splitbrain.org/plugin:avatar',
-    );
-  }
-
   function getType() { return 'substition'; }
   function getSort() { return 315; }
   
