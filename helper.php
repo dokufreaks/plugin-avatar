@@ -99,7 +99,7 @@ class helper_plugin_avatar extends DokuWiki_Plugin {
           } else {
               $src = 'http://www.gravatar.com/';
           }
-          $src .= 'avatar/'.$seed.'?s='.$size.'&d=monsterid'.'&r='.$this->getConf('rating').'&.jpg';
+          $src .= 'avatar/'.$seed.'?s='.$size.'&d='.$this->getConf('default').'&r='.$this->getConf('rating').'&.jpg';
           $src = ml($src);
       // show only default image if invalid or empty email given
       } else {
