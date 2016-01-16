@@ -25,8 +25,8 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
   function connectTo($mode) {
     $this->Lexer->addSpecialPattern("{{(?:gr|)avatar>.+?}}",$mode,'plugin_avatar');
   }
-  
-  function handle($match, $state, $pos, &$handler) {
+
+  function handle($match, $state, $pos, Doku_Handler $handler) {
     list($syntax, $match) = explode('>', substr($match, 0, -2), 2); // strip markup
     list($user, $title) = explode('|', $match, 2); // split title from mail / username
     
@@ -49,7 +49,7 @@ class syntax_plugin_avatar extends DokuWiki_Syntax_Plugin {
     return array($user, $title, $align, $size);
   } 
  
-  function render($mode, &$renderer, $data) {  
+  function render($mode, Doku_Renderer $renderer, $data) {
     if ($mode == 'xhtml') {      
       if ($my =& plugin_load('helper', 'avatar'))
         $renderer->doc .= '<span class="vcard">'.
